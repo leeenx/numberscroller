@@ -94,11 +94,22 @@ h1{text-align: center;}
 </div>
 
 <h1>显示"000000xxx"形式的数字</h1>
-<div class="numbers" HALO-NUMBER-SCROLL direction="down" diffrentiation="1" id="scroller5">
+<div class="numbers" HALO-NUMBER-SCROLL direction="down" diffrentiation="1" minLen="12" id="scroller5">
     <input type="hidden" value="124" id="hidden7" halo-numbers="000000000" />
 </div>
+<div class="oprea">
+    <input value="512" type="text" id="input11">
+    <input type="button" value="滚动" onclick="hidden7.value=input11.value; NUMBERS.scroll();" />
+</div>
 
-
+<h1>不滚动，只是更改数字</h1>
+<div class="numbers" HALO-NUMBER-SCROLL direction="down" diffrentiation="1" minLen="12" id="scroller6">
+    <input type="hidden" value="124" id="hidden8" />
+</div>
+<div class="oprea">
+    <input value="512" type="text" id="input12">
+    <input type="button" value="显示" onclick="hidden8.value=input12.value; NUMBERS.show();" />
+</div>
 
 <script type="text/javascript" src="numberscroller.js"></script>
 <script type="text/javascript">
@@ -111,6 +122,7 @@ var NUMBERS=numbers(
         delay: .3,//组之间的时间延迟，默认.3s
         groupNum:2,//默认2个一组
         diffrentiation:1,//差异化滚动，默认是差异化滚动
+        //minLen:12,
         undreg:''//强制无差异化匹配 ^ooxx 表示开头第3，4为无差异化滚动 xxx$ 表示倒数的后三们为无差异滚动
     }
 );
