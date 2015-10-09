@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title>数字滚动</title>
+    <style type="text/css">
+html,body{margin: 0; padding: 0;}
+.numbers{position: relative; width: 600px; height: 30px; margin: 20px auto; background-color: #333; color: #fff;}
+h1{text-align: center;}
+.oprea{position: relative; width: 600px; height: auto; margin: 20px auto;}
+    </style>
+   </head>
+<body ontouchstart>
+<h1>以下是普通的2个数字一组的滚动</h1>
+<div class="numbers" HALO-NUMBER-SCROLL>
+	<input type="hidden" value="103450" />
+</div>
+<h1>以下是普通的1个数字一组的滚动</h1>
+<div class="numbers" HALO-NUMBER-SCROLL groupNum="1">
+    <input type="hidden" value="103450" />
+</div>
+<h1>以下是滚动方向向上的滚动</h1>
+<div class="numbers" HALO-NUMBER-SCROLL direction="up">
+    <input type="hidden" value="12345678" />
+</div>
+<h1>以下是滚动方向向下的滚动</h1>
+<div class="numbers" HALO-NUMBER-SCROLL direction="down">
+    <input type="hidden" value="12345678" />
+</div>
+<h1>从右到左滚动</h1>
+<div class="numbers" HALO-NUMBER-SCROLL direction="down" l2r="0">
+    <input type="hidden" value="12345678" />
+</div>
+<h1>有差异化滚动</h1>
+<div class="numbers" HALO-NUMBER-SCROLL direction="down" diffrentiation="1">
+    <input type="hidden" value="12345678" id="hidden1" />
+</div>
+<div class="oprea">
+    <input value="10000001" type="text" id="input1">
+    <input type="button" value="滚动" onclick="hidden1.value=input1.value; NUMBERS.scroll();" />
+</div>
+<h1>无差异化滚动</h1>
+<div class="numbers" HALO-NUMBER-SCROLL direction="down" diffrentiation="0">
+    <input type="hidden" value="12345678" id="hidden2" />
+</div>
+<div class="oprea">
+    <input value="10000001" type="text" id="input2">
+    <input type="button" value="滚动" onclick="hidden2.value=input2.value; NUMBERS.scroll();" />
+</div>
+
+<h1>定制前三位数字无差异滚动</h1>
+<div class="numbers" HALO-NUMBER-SCROLL direction="down" diffrentiation="1" id="scroller1">
+    <input type="hidden" value="12345678" id="hidden3" />
+</div>
+<div class="oprea">
+    <input value="12345679" type="text" id="input3">
+    <input value="^xxx" type="text" id="input4">
+    <input type="button" value="滚动" onclick="hidden3.value=input3.value; scroller1.setAttribute('undreg',input4.value); NUMBERS.scroll();" />
+</div>
+
+<h1>定制第二，四位数字无差异滚动</h1>
+<div class="numbers" HALO-NUMBER-SCROLL direction="down" diffrentiation="1" id="scroller2">
+    <input type="hidden" value="12345678" id="hidden4" />
+</div>
+<div class="oprea">
+    <input value="12345679" type="text" id="input5">
+    <input value="^oxox" type="text" id="input6">
+    <input type="button" value="滚动" onclick="hidden4.value=input5.value; scroller2.setAttribute('undreg',input6.value); NUMBERS.scroll();" />
+</div>
+
+<h1>定制后三位数字无差异滚动</h1>
+<div class="numbers" HALO-NUMBER-SCROLL direction="down" diffrentiation="1" id="scroller3">
+    <input type="hidden" value="12345678" id="hidden5" />
+</div>
+<div class="oprea">
+    <input value="10345678" type="text" id="input7">
+    <input value="xxx$" type="text" id="input8">
+    <input type="button" value="滚动" onclick="hidden5.value=input7.value; scroller3.setAttribute('undreg',input8.value); NUMBERS.scroll();" />
+</div>
+
+<h1>定制倒数第三，五位数字无差异滚动</h1>
+<div class="numbers" HALO-NUMBER-SCROLL direction="down" diffrentiation="1" id="scroller4">
+    <input type="hidden" value="12345678" id="hidden6" />
+</div>
+<div class="oprea">
+    <input value="10345678" type="text" id="input9">
+    <input value="xoxoo$" type="text" id="input10">
+    <input type="button" value="滚动" onclick="hidden6.value=input9.value; scroller4.setAttribute('undreg',input10.value); NUMBERS.scroll();" />
+</div>
+
+<h1>显示"000000xxx"形式的数字</h1>
+<div class="numbers" HALO-NUMBER-SCROLL direction="down" diffrentiation="1" minLen="12" id="scroller5">
+    <input type="hidden" value="124" id="hidden7" halo-numbers="000000000" />
+</div>
+<div class="oprea">
+    <input value="512" type="text" id="input11">
+    <input type="button" value="滚动" onclick="hidden7.value=input11.value; NUMBERS.scroll();" />
+</div>
+
+<h1>不滚动，只是更改数字</h1>
+<div class="numbers" HALO-NUMBER-SCROLL direction="down" diffrentiation="1" minLen="12" id="scroller6">
+    <input type="hidden" value="124" id="hidden8" />
+</div>
+<div class="oprea">
+    <input value="512" type="text" id="input12">
+    <input type="button" value="显示" onclick="hidden8.value=input12.value; NUMBERS.show();" />
+</div>
+
+<script type="text/javascript" src="numberscroller.js"></script>
+<script type="text/javascript">
+var NUMBERS=numbers(
+    {
+        round:3,//默认三圈
+        duration: 1,//默认1s
+        direction: 'alternate',//方向，有三个值，up,down,alternate。默认是alternate
+        l2r:1,//滚动顺序，如果为1表示 从左到右 如果为0表示 从右到左
+        delay: .3,//组之间的时间延迟，默认.3s
+        groupNum:2,//默认2个一组
+        diffrentiation:1,//差异化滚动，默认是差异化滚动
+        //minLen:12,
+        undreg:''//强制无差异化匹配 ^ooxx 表示开头第3，4为无差异化滚动 xxx$ 表示倒数的后三们为无差异滚动
+    }
+);
+NUMBERS.scroll();
+</script>
+</body>
+</html>
