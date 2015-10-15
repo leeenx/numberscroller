@@ -93,4 +93,8 @@ NUMBERS.scroll();
 窗口的属性名与定制对象的成员名一致！！
 
 
+<<<<<<< HEAD
 具体使用方式，可以查看DEMO.html页面
+=======
+具体使用方式，可以查看[DEMO.html](http://leeenx.github.io/numberscroller/DEMO.html)页面
+>>>>>>> origin/master
