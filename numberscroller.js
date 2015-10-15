@@ -192,3 +192,4 @@ var numbers=function(_config){
     set(_config);//默认设置一下配置
     return {scroll:scroll,set:set,show:show}
 };
+
