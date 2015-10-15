@@ -127,7 +127,7 @@ var numbers=function(_config){
         var halonumber=document.querySelectorAll("[HALO-NUMBER]");
         setTimeout(function(){
             for(var i=0,len=halonumber.length;i<len;++i){
-                halonumber[i].getAttribute("direction")=="up"?(halonumber[i].style[webkit+"transform"]="translate3d(0,-100%,0)"):(halonumber[i].style[webkit+"transform"]="translate3d(0,-"+h+"px,0)");
+                halonumber[i].getAttribute("direction")=="up"?(halonumber[i].style[webkit+"transform"]="translate3d(0,-100%,0)"):(halonumber[i].style[webkit+"transform"]="translate3d(0,0,0)");
                 //halonumber[i].removeAttribute("direction"),halonumber[i].removeAttribute("HALO-NUMBER");
             }
         },0);
@@ -151,23 +151,23 @@ var numbers=function(_config){
     createNum=function(number,oldNumber,groupIndex,direction){
         var str='';
         if('up'==direction){
-            str+='<div style="'+webkit+'transform: translate3d(0,-'+h+'px,0); '+webkit+'transition: '+webkit+'transform '+config.duration+'s ease-in-out '+config.delay*groupIndex+'s; position: absolute; width: 100%; height: auto; top: '+h+'px;" HALO-NUMBER direction="'+direction+'">';
+            str+='<div style="'+webkit+'transform: translate3d(0,0,0); '+webkit+'transition: '+webkit+'transform '+config.duration+'s ease-in-out '+config.delay*groupIndex+'s; position: absolute; width: 100%; height: auto; top: 0;" HALO-NUMBER direction="'+direction+'">';
             str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0; left: 0; top: 0;">'+oldNumber+'</div>';
             for(var i=0;i<config.round;++i){
                 str+=createScrollNum(h);
             }
             for(var i=0;i<=number;++i){
-                str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0; left: 0; top: 0;">'+i+'</div>';
+                str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0 0 '+(i==number?'-'+h+'px':'0')+' 0; left: 0; top: 0;">'+i+'</div>';
             }
         }else{
-            str+='<div style="'+webkit+'transform: translate3d(0,-100%,0); '+webkit+'transition: '+webkit+'transform '+config.duration+'s ease-in-out '+config.delay*groupIndex+'s; position: absolute; width: 100%; height: auto; top: '+h+'px;" HALO-NUMBER direction="'+direction+'">';
+            str+='<div style="'+webkit+'transform: translate3d(0,-100%,0); '+webkit+'transition: '+webkit+'transform '+config.duration+'s ease-in-out '+config.delay*groupIndex+'s; position: absolute; width: 100%; height: auto; top: 0;" HALO-NUMBER direction="'+direction+'">';
             for(var i=number;i>=0;--i){
-                str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0; left: 0; top: 0;">'+i+'</div>';
+                str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0 0 0 0; left: 0; top: 0;">'+i+'</div>';
             }
             for(var i=0;i<config.round;++i){
                 str+=createScrollNum2(h);
             }
-            str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0; left: 0; top: 0;">'+oldNumber+'</div>';
+            str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0 0 -'+h+'px 0; left: 0; top: 0;">'+oldNumber+'</div>';
         }
         str+='</div>';
         return str;
