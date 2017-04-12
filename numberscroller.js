@@ -1,4 +1,3 @@
-//数字滚动
 var numbers=function(_config){
     var webkit=function(){
         //浏览器特有css样式的
@@ -17,6 +16,8 @@ var numbers=function(_config){
         }
     }(),
     config={
+        containerClass: '', 
+        containerItemClass: '', 
         round:3,//默认三圈
         duration: 1,//默认1s
         direction: 'alternate',//方向，有三个值，up,down,alternate。默认是alternate
@@ -25,6 +26,10 @@ var numbers=function(_config){
         groupNum:2,//默认2个一组
         diffrentiation:1,//差异化滚动，默认是差异化滚动
         minLen:0,//强制数字最小长度，0表示没有限制
+        numList: [// 数字列表，默认是数字 
+          0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+        ], 
+        numHolder: '-', 
         undreg:''//强制无差异化匹配 ^ooxx 表示开头第3，4为无差异化滚动 xxx$ 表示倒数的后三们为无差异滚动
     },
     scroll=function(){
@@ -47,10 +52,11 @@ var numbers=function(_config){
         }
         if(!_container){
             _container=document.createElement("div");
+            _container.className = config.containerClass || ''; 
             _container.setAttribute("HALO-NUMBERS-CONTAINER","");
             container.appendChild(_container);
         }
-        if(!num||num==haloNumbers)return ;//不执行
+        if(isNaN(num) || num === haloNumbers)return ;//不执行
         var ni=(num+'').split(''),len=ni.length;
         if(minLen){
             //有最小长度限制
@@ -64,7 +70,7 @@ var numbers=function(_config){
         if(haloNumbers==""){
             //表示未初始化
             for(var i=0;i<len;++i){
-                haloNumbers+="-";
+                haloNumbers += "-";
             }
         }
         var _ni=(haloNumbers+'').split(''),_len=_ni.length;
@@ -109,16 +115,17 @@ var numbers=function(_config){
         }
         var perW=w/len,str='',direction=container.getAttribute("direction")||config.direction;
         if(direction!="up"&&direction!="down")direction="alternate";
-        var isAlterNate=(direction=="alternate"),needScrollI=(l2r?0:len);
+        var isAlterNate=(direction=="alternate"),needScrollI=(l2r?0:len), 
+        itemClass = config.containerItemClass && "";
         for(var i=0;i<len;++i){
             if(unscroll||ni[i]==_ni[i]&&diffrentiation&&!undiffrentiationArr[i]){//如果是有差异化滚动就需要走这一分支
-                str+='<i style="display:inline-block; vertical-align:top; position:relative; width: '+perW+'px; height: '+h+'px; line-height: '+h+'px; text-align: center; overflow: hidden;">'+ni[i]+'</i>';
+                str+='<i class="' + config.containerItemClass + '" style="display:inline-block; vertical-align:top; position:relative; width: '+perW+'px; height: '+h+'px; line-height: '+h+'px; text-align: center; overflow: hidden;">'+config.numList[ni[i]]+'</i>';
             }else{
                 isAlterNate&&(direction=(i%2==0?"up":"down"));
                 if(l2r){//从左到右滚动
-                    str+='<i style="display:inline-block; vertical-align:top; position:relative; width: '+perW+'px; height: '+h+'px; line-height: '+h+'px; text-align: center; overflow: hidden;">'+createNum(ni[i],_ni[i],Math.ceil(needScrollI++/groupNum),direction,h)+'</i>';
+                    str+='<i class="' + config.containerItemClass + '" style="display:inline-block; vertical-align:top; position:relative; width: '+perW+'px; height: '+h+'px; line-height: '+h+'px; text-align: center; overflow: hidden;">'+createNum(ni[i],_ni[i],Math.ceil(needScrollI++/groupNum),direction,h)+'</i>';
                 }else{//从右到左滚动
-                    str+='<i style="display:inline-block; vertical-align:top; position:relative; width: '+perW+'px; height: '+h+'px; line-height: '+h+'px; text-align: center; overflow: hidden;">'+createNum(ni[i],_ni[i],Math.ceil(needScrollI--/groupNum),direction,h)+'</i>';
+                    str+='<i class="' + config.containerItemClass + '" style="display:inline-block; vertical-align:top; position:relative; width: '+perW+'px; height: '+h+'px; line-height: '+h+'px; text-align: center; overflow: hidden;">'+createNum(ni[i],_ni[i],Math.ceil(needScrollI--/groupNum),direction,h)+'</i>';
                 }
             }
         }
@@ -130,44 +137,61 @@ var numbers=function(_config){
                 halonumber[i].getAttribute("direction")=="up"?(halonumber[i].style[webkit+"transform"]="translate3d(0,-100%,0)"):(halonumber[i].style[webkit+"transform"]="translate3d(0,0,0)");
                 //halonumber[i].removeAttribute("direction"),halonumber[i].removeAttribute("HALO-NUMBER");
             }
-        },0);
+        },300);
     },
-    createScrollNum=function(){
+    createScrollNum=function(start){
         //生成滚动的数字
         var str='';
-        for(var i=0;i<=9;++i){
-            str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0; left: 0; top: 0;">'+i+'</div>';
+        start = start || 0; 
+        for(var i=start, len = config.numList.length;i<len;++i){
+            str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0; left: 0; top: 0;">'+ config.numList[i] +'</div>';
         }
         return str;
     },
-    createScrollNum2=function(h){
+    createScrollNum2=function(start, hasLasterNum){
         //生成滚动的数字
-        var str='';
-        for(var i=9;i>=0;--i){
-            str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0; left: 0; top: 0;">'+i+'</div>';
+        var str=''; 
+        start = start || 0; 
+        for(var i=config.numList.length-1; i>=start; --i){
+            str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: ' + (start == i && hasLasterNum ? "0 0 -" + h + "px 0" : "0") + '; left: 0; top: 0;">'+ config.numList[i] +'</div>';
         }
         return str;
     },
     createNum=function(number,oldNumber,groupIndex,direction){
-        var str='';
-        if('up'==direction){
+        var str='', 
+        round = config.round;  
+        if('up'==direction){ console.log("up");
             str+='<div style="'+webkit+'transform: translate3d(0,0,0); '+webkit+'transition: '+webkit+'transform '+config.duration+'s ease-in-out '+config.delay*groupIndex+'s; position: absolute; width: 100%; height: auto; top: 0;" HALO-NUMBER direction="'+direction+'">';
-            str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0; left: 0; top: 0;">'+oldNumber+'</div>';
-            for(var i=0;i<config.round;++i){
-                str+=createScrollNum(h);
+            if(typeof(oldNumber) == "number") {
+                str += createScrollNum(oldNumber); 
+                oldNumber>5 && --round; 
+            } else {
+                // 占位符 
+                str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0; left: 0; top: 0;">'+config.numHolder+'</div>';
+            }
+            
+            for(var i=0;i<round;++i){
+                str+=createScrollNum();
             }
             for(var i=0;i<=number;++i){
-                str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0 0 '+(i==number?'-'+h+'px':'0')+' 0; left: 0; top: 0;">'+i+'</div>';
+                str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0 0 '+(i==number?'-'+h+'px':'0')+' 0; left: 0; top: 0;">'+config.numList[i]+'</div>';
             }
-        }else{
+        }else{ console.log("down");
             str+='<div style="'+webkit+'transform: translate3d(0,-100%,0); '+webkit+'transition: '+webkit+'transform '+config.duration+'s ease-in-out '+config.delay*groupIndex+'s; position: absolute; width: 100%; height: auto; top: 0;" HALO-NUMBER direction="'+direction+'">';
             for(var i=number;i>=0;--i){
-                str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0 0 0 0; left: 0; top: 0;">'+i+'</div>';
+                str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0 0 0 0; left: 0; top: 0;">'+config.numList[i]+'</div>';
             }
-            for(var i=0;i<config.round;++i){
-                str+=createScrollNum2(h);
+            oldNumber<5 && --round; 
+            for(var i=0;i<round;++i){
+                str+=createScrollNum2();
             }
-            str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0 0 -'+h+'px 0; left: 0; top: 0;">'+oldNumber+'</div>';
+            if(typeof(oldNumber) == "number") {
+                str += createScrollNum2(oldNumber); 
+            } else {
+                str += createScrollNum2(oldNumber, true); 
+                str+='<div style="position:relative; width:100%; height: '+h+'px; line-height: '+h+'px; overflow:hidden; padding: 0; margin: 0 0 -'+h+'px 0; left: 0; top: 0;">'+ config.numHolder +'</div>';
+            }
+            
         }
         str+='</div>';
         return str;

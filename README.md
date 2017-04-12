@@ -8,7 +8,7 @@
 
 ```html
 <div class="numbers" HALO-NUMBER-SCROLL>
-	<input type="hidden" value="103450" />
+    <input type="hidden" value="103450" />
 </div>
 ```
 
@@ -17,15 +17,15 @@
 ```html
 <body ontouchstart>
 <div class="numbers" HALO-NUMBER-SCROLL>
-	<input type="hidden" value="103450" />
+    <input type="hidden" value="103450" />
 </div>
 <div class="numbers" HALO-NUMBER-SCROLL>
     <input type="hidden" value="12345678" />
 </div>
 <script type="text/javascript" src="numberscroller.js"></script>
 <script type="text/javascript">
-	var NUMBERS=numbers();
-	NUMBERS.scroll();
+    var NUMBERS=numbers();
+    NUMBERS.scroll();
 </script>
 </body>
 ```
@@ -42,7 +42,7 @@
 
 ```javascript
 var NUMBERS=numbers(
-	{
+    {
         round:3,//默认三圈
         duration: 1,//默认1s
         direction: 'alternate',//方向，有三个值，up,down,alternate。默认是alternate
@@ -50,7 +50,16 @@ var NUMBERS=numbers(
         delay: .3,//组之间的时间延迟，默认.3s
         groupNum:2,//默认2个一组
         diffrentiation:1,//差异化滚动，默认是差异化滚动
-        undreg:'^xxx'//强制无差异化匹配 ^ooxx 表示开头第3，4为无差异化滚动 xxx$ 表示倒数的后三们为无差异滚动
+        undreg:'^xxx', //强制无差异化匹配 ^ooxx 表示开头第3，4为无差异化滚动 xxx$ 表示倒数的后三们为无差异滚动
+        numList: [ // 数字列表
+          "<img src='http://jdc.jd.com/img/170x170?color=ffffff&text=1'>", 
+          "<img src='http://jdc.jd.com/img/170x170?color=ff0000&text=2'>", 
+          "<img src='http://jdc.jd.com/img/170x170?color=00ff00&text=3'>", 
+          "<img src='http://jdc.jd.com/img/170x170?color=ffff00&text=4'>", 
+          "<img src='http://jdc.jd.com/img/170x170?color=cccccc&text=5'>", 
+          "<img src='http://jdc.jd.com/img/170x170?color=000000&text=6'>"
+        ], 
+        numHolder: "<img src='http://jdc.jd.com/img/170x170?color=000000&text=*'>"
     }
 );
 NUMBERS.scroll();//需要调用scroll方法后才可以触发数字滚动
@@ -61,7 +70,7 @@ NUMBERS.scroll();//需要调用scroll方法后才可以触发数字滚动
 ```javascript
 var NUMBERS=numbers();
 NUMBERS.set(
-	{
+    {
         round:3,//默认三圈
         duration: 1,//默认1s
         direction: 'alternate',//方向，有三个值，up,down,alternate。默认是alternate
@@ -83,10 +92,10 @@ NUMBERS.scroll();
 
 ```html
 <div class="dataCounter" HALO-NUMBER-SCROLL diffrentiation="1" undreg="xxx$" l2r="1">
-	<input type="hidden" value="12345678912" />
+    <input type="hidden" value="12345678912" />
 </div>
 <div class="dataCounter" HALO-NUMBER-SCROLL diffrentiation="1" undreg="xxx$" l2r="0">
-	<input type="hidden" value="12345678912" />
+    <input type="hidden" value="12345678912" />
 </div>
 ```
 

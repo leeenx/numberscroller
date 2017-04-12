@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title>数字(图片)滚动</title>
+    <style type="text/css">
+html,body{margin: 0; padding: 0;}
+.numbers{position: relative; width: 600px; height: 30px; margin: 20px auto; background-color: #333; color: #fff;}
+.numbers img {
+  display: block; 
+  width: 100%; 
+  height: 100%; 
+}
+    </style>
+   </head>
+<body ontouchstart>
+<div class="numbers" HALO-NUMBER-SCROLL>
+  <input type="hidden" value="103450" />
+</div>
+<div class="numbers" HALO-NUMBER-SCROLL>
+    <input type="hidden" value="12345678" />
+</div>
+<script type="text/javascript" src="numberscroller.js"></script>
+<script type="text/javascript">
+var NUMBERS=numbers(
+    {
+        round:3,//默认三圈
+        duration: 1,//默认1s
+        direction: 'alternate',//方向，有三个值，up,down,alternate。默认是alternate
+        l2r:1,//滚动顺序，如果为1表示 从左到右 如果为0表示 从右到左
+        delay: .3,//组之间的时间延迟，默认.3s
+        groupNum:2,//默认2个一组
+        diffrentiation:1,//差异化滚动，默认是差异化滚动
+        undreg:'^xxx', //强制无差异化匹配 ^ooxx 表示开头第3，4为无差异化滚动 xxx$ 表示倒数的后三们为无差异滚动
+        numList: [ // 数字列表
+          "<img src='http://jdc.jd.com/img/100x30?color=ffff00&text=0'>",
+          "<img src='http://jdc.jd.com/img/100x30?color=ffffff&text=1'>", 
+          "<img src='http://jdc.jd.com/img/100x30?color=ff0000&text=2'>", 
+          "<img src='http://jdc.jd.com/img/100x30?color=00ff00&text=3'>", 
+          "<img src='http://jdc.jd.com/img/100x30?color=ffff00&text=4'>", 
+          "<img src='http://jdc.jd.com/img/100x30?color=cccccc&text=5'>", 
+          "<img src='http://jdc.jd.com/img/100x30?color=000000&text=6'>",
+          "<img src='http://jdc.jd.com/img/100x30?color=ffffff&text=7'>", 
+          "<img src='http://jdc.jd.com/img/100x30?color=ff0000&text=8'>", 
+          "<img src='http://jdc.jd.com/img/100x30?color=00ff00&text=9'>"
+        ], 
+        numHolder: "<img src='http://jdc.jd.com/img/170x170?color=000000&text=*'>"
+    }
+);
+NUMBERS.scroll(); 
+</script>
+</body>
+</html>
