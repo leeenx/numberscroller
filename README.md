@@ -103,3 +103,7 @@ NUMBERS.scroll();
 
 
 具体使用方式，可以查看[DEMO.html](http://leeenx.github.io/numberscroller/DEMO.html)页面
+使用图片，可以查看 [images.html](http://leeenx.github.io/numberscroller/image.html)
+
+
+
