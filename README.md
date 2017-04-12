@@ -102,7 +102,8 @@ NUMBERS.scroll();
 窗口的属性名与定制对象的成员名一致！！
 
 
-具体使用方式，可以查看[DEMO.html](http://leeenx.github.io/numberscroller/DEMO.html)页面
+具体使用方式，可以查看[DEMO.html](http://leeenx.github.io/numberscroller/DEMO.html)页面  
+
 使用图片，可以查看 [images.html](http://leeenx.github.io/numberscroller/image.html)
 
 
